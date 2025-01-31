@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@theme {
+    --font-sans: "Roboto";
+}
+
+@layer base {
+    input {
+        @apply focus:border-b-sky-600 focus:border-b-2 py-1 px-2 outline-none;
+    }
+}
