@@ -16,6 +16,8 @@ import Header from "./components/Header";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import WorkValue from "./pages/WorkValue";
+import FixedExpenses from "./pages/FixedExpenses";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -35,17 +37,17 @@ function App() {
     return <p>Carregando...</p>
   }
 
-  console.log(user)
-
   return (
-    <div className="bg-slate-100 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       <AuthContextProvider value={{user}}>
         <BrowserRouter>
           <Header />
           <Routes>
             <Route path="/" element={!user ? <Login/> : <Home/>}/>
-            <Route path="/register" element={!user ? <Register /> : <Navigate to="/" />} />
+            <Route path="/cadastro" element={!user ? <Register /> : <Navigate to="/" />} />
             <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
+            <Route path="/valor-trabalho" element={user ? <WorkValue /> : <Navigate to="/" />} />
+            <Route path="/despesas-fixas" element={user ? <FixedExpenses /> : <Navigate to="/" />} />
           </Routes>
         </BrowserRouter>
       </AuthContextProvider>
