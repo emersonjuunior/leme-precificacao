@@ -22,20 +22,30 @@ import FixedExpenses from "./pages/FixedExpenses";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [authLoading, setAuthLoading] = useState(true); 
+  const [authLoading, setAuthLoading] = useState(true);
   const { auth } = useAuthentication();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      setAuthLoading(false); 
+      setAuthLoading(false);
     });
 
     return () => unsubscribe();
   }, [auth]);
 
-  const { documents, loading: documentsLoading, error } = useFetchDocuments(user?.uid);
-  console.log(documents)
+  const {
+    fixedExpenses,
+    variableExpenses,
+    workValue,
+    services,
+    setFixedExpenses,
+    setVariableExpenses,
+    setWorkValue,
+    setServices,
+    loading: documentsLoading,
+    error,
+  } = useFetchDocuments(user?.uid);
 
   if (authLoading || documentsLoading) {
     return <p>Carregando...</p>;
@@ -43,7 +53,19 @@ function App() {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      <AuthContextProvider value={{ user }}>
+      <AuthContextProvider
+        value={{
+          user,
+          fixedExpenses,
+          variableExpenses,
+          workValue,
+          services,
+          setFixedExpenses,
+          setVariableExpenses,
+          setWorkValue,
+          setServices,
+        }}
+      >
         <BrowserRouter>
           <Header />
           <Routes>
@@ -62,7 +84,7 @@ function App() {
             />
             <Route
               path="/despesas-fixas"
-              element={user ? <FixedExpenses documents={documents} /> : <Navigate to="/" />}
+              element={user ? <FixedExpenses /> : <Navigate to="/" />}
             />
           </Routes>
         </BrowserRouter>

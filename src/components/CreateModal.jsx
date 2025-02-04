@@ -4,6 +4,7 @@ import { useAuthValue } from "../context/AuthContext";
 
 const CreateModal = ({ title, toggleCreateModal }) => {
   const { user } = useAuthValue();
+  const { fixedExpenses, setFixedExpenses } = useAuthValue();
   const [name, setName] = useState("");
   const [value, setValue] = useState("");
 
@@ -16,6 +17,8 @@ const CreateModal = ({ title, toggleCreateModal }) => {
       createdAt: new Date(),
     };
 
+    toggleCreateModal()
+    setFixedExpenses((prev) => [data, ...prev])
     useAddDocument(user.uid, "fixedExpenses", data);
   };
 

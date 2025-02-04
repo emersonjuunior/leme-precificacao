@@ -58,7 +58,6 @@ export const useAuthentication = () => {
 
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      console.log("deu certo");
     } catch (error) {
       if (error.code === "auth/invalid-email") {
         setError(
