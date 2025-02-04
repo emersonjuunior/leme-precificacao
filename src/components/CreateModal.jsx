@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSetDocument } from "../hooks/useSetDocument";
+import { useAddDocument } from "../hooks/useAddDocument";
 import { useAuthValue } from "../context/AuthContext";
 
 const CreateModal = ({ title, toggleCreateModal }) => {
@@ -7,11 +7,17 @@ const CreateModal = ({ title, toggleCreateModal }) => {
   const [name, setName] = useState("");
   const [value, setValue] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    useSetDocument("workValue", fixedExpenses, user.uid);
-  }
+    const data = {
+      name,
+      value,
+      createdAt: new Date(),
+    };
+
+    useAddDocument(user.uid, "fixedExpenses", data);
+  };
 
   return (
     <div className="w-full h-full inset-0 bg-black/30 border-2 fixed flex justify-center items-center z-30">
@@ -21,7 +27,10 @@ const CreateModal = ({ title, toggleCreateModal }) => {
           onClick={toggleCreateModal}
         ></i>
         <h2 className="text-4xl font-medium text-slate-700 my-5">{title}</h2>
-        <form className="flex flex-col gap-4 w-full mx-auto justify-center items-center">
+        <form
+          className="flex flex-col gap-4 w-full mx-auto justify-center items-center"
+          onSubmit={handleSubmit}
+        >
           <label className="flex flex-col">
             <span className="text-lg">Nome</span>
             <input

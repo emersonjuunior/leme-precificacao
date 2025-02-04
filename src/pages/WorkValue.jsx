@@ -14,7 +14,7 @@ const WorkValue = () => {
     setAdditional((prev) => !prev);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     let value = salary / days / hours;
@@ -31,7 +31,7 @@ const WorkValue = () => {
       createdAt: new Date(),
     };
 
-    useSetDocument("workValue", workValue, user.uid);
+    useSetDocument(user.uid, "workValue", workValue);
 
     setSalary("");
     setDays("");
