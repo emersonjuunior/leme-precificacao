@@ -1,6 +1,7 @@
 import AddButton from "../components/AddButton";
 import CreateModal from "../components/CreateModal";
 import DeleteModal from "../components/DeleteModal";
+import UpdateModal from "../components/UpdateModal";
 import { useState } from "react";
 import { useAuthValue } from "../context/AuthContext";
 
@@ -8,17 +9,26 @@ const FixedExpenses = () => {
   const { fixedExpenses, setFixedExpenses } = useAuthValue();
   const [createModal, setCreateModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-  const [expenseId, setExpenseId] = useState(null)
-  const [currentExpense, setCurrentExpense] = useState(null)
+  const [updateModal, setUpdateModal] = useState(false);
+  const [expenseId, setExpenseId] = useState(null);
+  const [currentExpense, setCurrentExpense] = useState(null);
+  const [expenseValue, setExpenseValue] = useState(null)
 
   const toggleCreateModal = () => {
     setCreateModal((prev) => !prev);
   };
 
   const toggleDeleteModal = (id, name) => {
-    setCurrentExpense(name)
-    setExpenseId(id)
+    setCurrentExpense(name);
+    setExpenseId(id);
     setDeleteModal((prev) => !prev);
+  };
+
+  const toggleUpdateModal = (id, name, value) => {
+    setCurrentExpense(name);
+    setExpenseValue(value)
+    setExpenseId(id);
+    setUpdateModal((prev) => !prev);
   };
 
   return (
@@ -49,7 +59,10 @@ const FixedExpenses = () => {
                 <span className="text-lg">/mês</span>
               </div>
               <div className="flex w-full items-center gap-4">
-                <button className=" px-4 py-2 bg-blue-500 text-zinc-700 rounded flex justify-around gap-2">
+                <button
+                  onClick={() => toggleUpdateModal(expense.id, expense.name, expense.value)}
+                  className=" px-4 py-2 bg-blue-500 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer"
+                >
                   <i className="fa-solid fa-pencil"></i>
                 </button>
                 <button
@@ -74,10 +87,17 @@ const FixedExpenses = () => {
         )}
         {deleteModal && (
           <DeleteModal
-            title={"Nova despesa fixa"}
             toggleDeleteModal={toggleDeleteModal}
             expenseId={expenseId}
             currentExpense={currentExpense}
+          />
+        )}
+        {updateModal && (
+          <UpdateModal
+            toggleUpdateModal={toggleUpdateModal}
+            expenseId={expenseId}
+            currentExpense={currentExpense}
+            expenseValue={expenseValue}
           />
         )}
       </div>
