@@ -1,4 +1,5 @@
 import AddButton from "../components/AddButton";
+import CommonExpenses from "../components/CommonExpenses";
 import CreateModal from "../components/CreateModal";
 import DeleteModal from "../components/DeleteModal";
 import UpdateModal from "../components/UpdateModal";
@@ -7,15 +8,22 @@ import { useAuthValue } from "../context/AuthContext";
 
 const FixedExpenses = () => {
   const { fixedExpenses, setFixedExpenses } = useAuthValue();
+  const [commonExpensesModal, setCommonExpensesModal] = useState(false);
   const [createModal, setCreateModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [updateModal, setUpdateModal] = useState(false);
   const [expenseId, setExpenseId] = useState(null);
   const [currentExpense, setCurrentExpense] = useState(null);
-  const [expenseValue, setExpenseValue] = useState(null)
+  const [expenseValue, setExpenseValue] = useState(null);
+  const [commonExpense, setCommonExpense] = useState(null)
+
+  const toggleCommonExpensesModal = () => {
+    setCommonExpensesModal((prev) => !prev);
+  };
 
   const toggleCreateModal = () => {
     setCreateModal((prev) => !prev);
+    setCommonExpense(null)
   };
 
   const toggleDeleteModal = (id, name) => {
@@ -26,7 +34,7 @@ const FixedExpenses = () => {
 
   const toggleUpdateModal = (id, name, value) => {
     setCurrentExpense(name);
-    setExpenseValue(value)
+    setExpenseValue(value);
     setExpenseId(id);
     setUpdateModal((prev) => !prev);
   };
@@ -38,7 +46,10 @@ const FixedExpenses = () => {
         <div onClick={toggleCreateModal}>
           <AddButton />
         </div>
-        <button className="bg-blue-700 text-slate-50 font-medium px-3 py-2 rounded cursor-pointer flex gap-2 items-center justify-center">
+        <button
+          onClick={toggleCommonExpensesModal}
+          className="bg-blue-700 text-slate-50 font-medium px-3 py-2 rounded cursor-pointer flex gap-2 items-center justify-center"
+        >
           <i className="fa-solid fa-circle-info text-lg"></i>Despesas comuns
         </button>
       </div>
@@ -60,7 +71,9 @@ const FixedExpenses = () => {
               </div>
               <div className="flex w-full items-center gap-4">
                 <button
-                  onClick={() => toggleUpdateModal(expense.id, expense.name, expense.value)}
+                  onClick={() =>
+                    toggleUpdateModal(expense.id, expense.name, expense.value)
+                  }
                   className=" px-4 py-2 bg-blue-500 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer"
                 >
                   <i className="fa-solid fa-pencil"></i>
@@ -79,10 +92,18 @@ const FixedExpenses = () => {
             ></div>
           </div>
         ))}
+        {commonExpensesModal && (
+          <CommonExpenses
+            toggleCommonExpensesModal={toggleCommonExpensesModal}
+            setCommonExpense={setCommonExpense}
+            setCreateModal={setCreateModal}
+          />
+        )}
         {createModal && (
           <CreateModal
             title={"Nova despesa fixa"}
             toggleCreateModal={toggleCreateModal}
+            commonExpense={commonExpense}
           />
         )}
         {deleteModal && (

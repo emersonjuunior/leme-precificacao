@@ -1,12 +1,24 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useAddDocument } from "../hooks/useAddDocument";
 import { useAuthValue } from "../context/AuthContext";
 
-const CreateModal = ({ title, toggleCreateModal }) => {
+const CreateModal = ({ title, toggleCreateModal, commonExpense }) => {
   const { user } = useAuthValue();
   const { fixedExpenses, setFixedExpenses } = useAuthValue();
-  const [name, setName] = useState("");
+  const [name, setName] = useState(commonExpense ? commonExpense : "");
   const [value, setValue] = useState("");
+  const inputNameRef = useRef();
+  const inputValueRef = useRef();
+
+  useEffect(() => {
+    inputNameRef.current.focus()
+  }, [])
+
+  useEffect(() => {
+    if (commonExpense && inputValueRef.current) {
+      inputValueRef.current.focus();
+    }
+  }, [commonExpense]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,8 +29,8 @@ const CreateModal = ({ title, toggleCreateModal }) => {
       createdAt: new Date(),
     };
 
-    toggleCreateModal()
-    setFixedExpenses((prev) => [data, ...prev])
+    toggleCreateModal();
+    setFixedExpenses((prev) => [data, ...prev]);
     useAddDocument(user.uid, "fixedExpenses", data);
   };
 
@@ -40,6 +52,7 @@ const CreateModal = ({ title, toggleCreateModal }) => {
               className="w-[280px] md:w-[350px] border-[1.5px] border-slate-300 focus:border-b-sky-600 focus:border-b-2 rounded h-8 outline-none px-2 py-1 bg-slate-100"
               type="text"
               onChange={(e) => setName(e.target.value)}
+              ref={inputNameRef}
               value={name}
               required
             />
@@ -50,6 +63,7 @@ const CreateModal = ({ title, toggleCreateModal }) => {
               className="w-[280px] md:w-[350px] border-[1.5px] border-slate-300 focus:border-b-sky-600 focus:border-b-2 rounded h-8 outline-none px-2 py-1 bg-slate-100"
               type="number"
               onChange={(e) => setValue(e.target.value)}
+              ref={inputValueRef}
               value={value}
               required
             />
