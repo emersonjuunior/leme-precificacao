@@ -15,7 +15,7 @@ const FixedExpenses = () => {
   const [expenseId, setExpenseId] = useState(null);
   const [currentExpense, setCurrentExpense] = useState(null);
   const [expenseValue, setExpenseValue] = useState(null);
-  const [commonExpense, setCommonExpense] = useState(null)
+  const [commonExpense, setCommonExpense] = useState(null);
 
   const toggleCommonExpensesModal = () => {
     setCommonExpensesModal((prev) => !prev);
@@ -23,7 +23,7 @@ const FixedExpenses = () => {
 
   const toggleCreateModal = () => {
     setCreateModal((prev) => !prev);
-    setCommonExpense(null)
+    setCommonExpense(null);
   };
 
   const toggleDeleteModal = (id, name) => {
@@ -40,88 +40,107 @@ const FixedExpenses = () => {
   };
 
   return (
-    <section className="relative w-9/10 mx-auto bg-gray-200 text-zinc-700 md:min-h-[700px] min-h-[400px] rounded-lg shadow-lg px-6 py-4 md:px-14 md:py-8">
-      <h1 className="text-5xl mb-5">Despesas Fixas</h1>
-      <div className="flex gap-8 items-center mb-8">
-        <div onClick={toggleCreateModal}>
-          <AddButton />
-        </div>
-        <button
-          onClick={toggleCommonExpensesModal}
-          className="bg-blue-700 text-slate-50 font-medium px-3 py-2 rounded cursor-pointer flex gap-2 items-center justify-center"
-        >
-          <i className="fa-solid fa-circle-info text-lg"></i>Despesas comuns
-        </button>
-      </div>
-      <div className="flex gap-6 flex-wrap">
-        {fixedExpenses.map((expense, index) => (
-          <div
-            key={index}
-            className="w-[250px] h-[250px] bg-gray-50  shadow-md rounded border-b-2 border-indigo-800 relative"
-          >
-            <div className="w-full h-[60px] bg-linear-to-r from-indigo-600 to-indigo-900 flex items-center gap-4">
-              <i className="fa-solid fa-credit-card ml-4 text-gray-50 text-4xl"></i>
-              <p className="text-3xl text-white">{expense.name}</p>
+    <section className="md:px-4 px-2">
+      <div className="relative w-full max-w-[1400px] bg-gray-200 mx-auto text-zinc-700 md:min-h-[700px] min-h-[400px] rounded-lg shadow-lg">
+        <div className="px-6 md:px-14 pt-6 bg-gray-300 flex flex-col justify-center rounded-t-lg">
+          <h1 className="text-5xl mb-5">Despesas Fixas</h1>
+          <div className="flex flex-wrap gap-8 items-center mb-8">
+            <div onClick={toggleCreateModal}>
+              <AddButton />
             </div>
-            <div className="px-6 h-[190px] flex flex-col justify-center">
-              <div className="flex items-end mb-10 ">
-                <span className="text-lg">R$</span>
-                <p className="text-5xl font-medium">{expense.value}</p>
-                <span className="text-lg">/mês</span>
-              </div>
-              <div className="flex w-full items-center gap-4">
-                <button
-                  onClick={() =>
-                    toggleUpdateModal(expense.id, expense.name, expense.value)
-                  }
-                  className=" px-4 py-2 bg-blue-500 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer"
-                >
-                  <i className="fa-solid fa-pencil"></i>
-                </button>
-                <button
-                  onClick={() => toggleDeleteModal(expense.id, expense.name)}
-                  className="px-4 py-2 bg-red-700 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer"
-                >
-                  <i className="fa-solid fa-trash"></i>
-                </button>
-              </div>
-            </div>
-            <div
-              className="size-14 bg-indigo-700 absolute right-0 bottom-0"
-              style={{ clipPath: "polygon(100% 0, 0% 100%, 100% 100%" }}
-            ></div>
+            <button
+              onClick={toggleCommonExpensesModal}
+              className="bg-blue-700 text-slate-50 font-medium px-3 py-2 rounded cursor-pointer flex gap-2 items-center justify-center"
+            >
+              <i className="fa-solid fa-circle-info text-lg"></i>Despesas comuns
+            </button>
           </div>
-        ))}
-        {commonExpensesModal && (
-          <CommonExpenses
-            toggleCommonExpensesModal={toggleCommonExpensesModal}
-            setCommonExpense={setCommonExpense}
-            setCreateModal={setCreateModal}
-          />
-        )}
-        {createModal && (
-          <CreateModal
-            title={"Nova despesa fixa"}
-            toggleCreateModal={toggleCreateModal}
-            commonExpense={commonExpense}
-          />
-        )}
-        {deleteModal && (
-          <DeleteModal
-            toggleDeleteModal={toggleDeleteModal}
-            expenseId={expenseId}
-            currentExpense={currentExpense}
-          />
-        )}
-        {updateModal && (
-          <UpdateModal
-            toggleUpdateModal={toggleUpdateModal}
-            expenseId={expenseId}
-            currentExpense={currentExpense}
-            expenseValue={expenseValue}
-          />
+        </div>
+        {fixedExpenses.length === 0 ? (
+          <div className="w-full flex items-center justify-center">
+            <div className="flex items-center justify-center flex-col">
+              <img
+                src="/fixed-expenses.png"
+                alt="Ilustração despesas fixas"
+                className="w-110"
+              />
+              <p className="text-slate-700 font-medium text-2xl max-w-[400px] text-center">
+                Você ainda não tem nenhuma despesa fixa cadastrada!
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className="gap-2 lg:gap-4 flex flex-wrap px-6 py-4 md:px-14 md:py-8 min-h-[550px] max-h-[550px] overflow-auto">
+            {fixedExpenses.map((expense, index) => (
+              <div
+                key={index}
+                className="bg-linear-180 from-slate-300 to-slate-300 text-zinc-700 w-[300px] h-[190px] lg:w-[380px] lg:h-[220px] rounded-xl flex items-center gap-6 shadow-lg"
+              >
+                <div className="h-8/10 w-1 ml-4 rounded-md bg-linear-180 from-sky-400 to-indigo-800"></div>
+                <div className="flex flex-col gap-4">
+                  <h4 className="text-4xl font-medium">{expense.name}</h4>
+                  <div className="flex items-end">
+                    <span className="text-lg">R$</span>
+                    <p className="text-4xl font-medium">{expense.value}</p>
+                    <span className="text-lg">/mês</span>
+                  </div>
+                  <div className="flex w-full items-center gap-4">
+                    <button
+                      onClick={() =>
+                        toggleUpdateModal(
+                          expense.id,
+                          expense.name,
+                          expense.value
+                        )
+                      }
+                      className=" px-4 py-2 bg-blue-500 hover:bg-blue-600 transition-200 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer"
+                    >
+                      <i className="fa-solid fa-pencil"></i>
+                    </button>
+                    <button
+                      onClick={() =>
+                        toggleDeleteModal(expense.id, expense.name)
+                      }
+                      className="px-4 py-2 bg-red-700 hover:bg-red-800 transition-200 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer"
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </div>
+      {commonExpensesModal && (
+        <CommonExpenses
+          toggleCommonExpensesModal={toggleCommonExpensesModal}
+          setCommonExpense={setCommonExpense}
+          setCreateModal={setCreateModal}
+        />
+      )}
+      {createModal && (
+        <CreateModal
+          title={"Nova despesa fixa"}
+          toggleCreateModal={toggleCreateModal}
+          commonExpense={commonExpense}
+        />
+      )}
+      {deleteModal && (
+        <DeleteModal
+          toggleDeleteModal={toggleDeleteModal}
+          expenseId={expenseId}
+          currentExpense={currentExpense}
+        />
+      )}
+      {updateModal && (
+        <UpdateModal
+          toggleUpdateModal={toggleUpdateModal}
+          expenseId={expenseId}
+          currentExpense={currentExpense}
+          expenseValue={expenseValue}
+        />
+      )}
     </section>
   );
 };

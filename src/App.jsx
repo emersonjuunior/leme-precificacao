@@ -52,7 +52,7 @@ function App() {
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen text-zinc-700 overflow-x-hidden">
       <AuthContextProvider
         value={{
           user,

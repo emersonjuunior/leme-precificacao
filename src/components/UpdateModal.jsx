@@ -34,18 +34,21 @@ const CreateModal = ({
 
   return (
     <div className="w-full h-full inset-0 bg-black/30 border-2 fixed flex justify-center items-center z-30">
-      <div className="bg-gray-50 w-fit max-w-[650px] h-[400px] mx-2 rounded-lg px-12 pt-5 relative">
-        <i
-          className="fa-solid fa-x absolute right-4 cursor-pointer"
-          onClick={toggleUpdateModal}
-        ></i>
-        <h2 className="text-4xl font-medium text-slate-700 my-5">
-          Editar despesa {currentExpense}
-        </h2>
+      <div className="bg-gray-50 w-full max-w-[480px] mx-2 rounded-lg">
+        <div className="bg-blue-800 text-white w-full relative px-8 h-[70px] flex items-center mb-6 rounded-t-lg shadow-md">
+          <h2 className="text-4xl font-medium">
+            Editar {currentExpense}
+          </h2>
+          <i
+            className="fa-solid fa-x absolute cursor-pointer top-3 right-3"
+            onClick={toggleUpdateModal}
+          ></i>
+        </div>
         <form
           className="flex flex-col gap-4 w-full mx-auto justify-center items-center"
           onSubmit={handleSubmit}
         >
+          
           <label className="flex flex-col">
             <span className="text-lg">Nome</span>
             <input
@@ -66,7 +69,7 @@ const CreateModal = ({
               required
             />
           </label>
-          <div className="w-full flex flex-col items-center justify-center gap-4">
+          <div className="w-full flex flex-col items-center justify-center gap-4 bg-gray-100 py-4 rounded-b-lg border-gray-200 border-t-1">
             <button
               type="submit"
               className="bg-blue-500 hover:bg-blue-400 duration-300 cursor-pointer hover:scale-105 text-white rounded-lg px-4 py-2 w-[280px] md:w-[350px]"

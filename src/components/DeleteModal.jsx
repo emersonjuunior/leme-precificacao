@@ -9,14 +9,14 @@ const CreateModal = ({ toggleDeleteModal, expenseId, currentExpense }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setFixedExpenses((expense) => expense.filter((e) => e.id != expenseId));
+    setFixedExpenses( prev => prev.filter(expense => expense.id != expenseId))
     toggleDeleteModal();
     useDeleteDocument(user.uid, "fixedExpenses", expenseId);
   };
 
   return (
     <div className="w-full h-full inset-0 bg-black/30 border-2 fixed flex justify-center items-center z-30">
-      <div className="bg-gray-50 w-fit max-w-[650px] h-[280px] mx-2 rounded-lg px-12 pt-5 relative">
+      <div className="bg-gray-50 w-fit max-w-[650px] h-[270px] mx-2 rounded-lg px-12 pt-5 relative">
         <i
           className="fa-solid fa-x absolute right-4 cursor-pointer"
           onClick={toggleDeleteModal}
@@ -24,7 +24,9 @@ const CreateModal = ({ toggleDeleteModal, expenseId, currentExpense }) => {
         <h2 className="text-4xl font-medium text-slate-700 my-5">
           Apagar despesa
         </h2>
-        <p className="mb-10">Tem certeza que deseja apagar a despesa {currentExpense}?</p>
+        <p className="mb-8">
+          Tem certeza que deseja apagar a despesa <span className="font-bold">{currentExpense}</span>?
+        </p>
         <form
           className="flex flex-col gap-4 w-full mx-auto justify-center items-center"
           onSubmit={handleSubmit}

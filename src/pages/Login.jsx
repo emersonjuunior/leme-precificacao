@@ -82,7 +82,7 @@ const Login = () => {
           <p className="text-center">
             Não tem uma conta?{" "}
             <Link
-              to="/register"
+              to="/cadastro"
               className="text-sky-700 font-medium cursor-pointer hover:text-sky-600 duration-200"
             >
               Cadastrar-se

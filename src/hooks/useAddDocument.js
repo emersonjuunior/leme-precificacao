@@ -1,14 +1,15 @@
 import { db } from "../firebase/firebaseConfig";
-import { collection, doc, addDoc } from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 
-export const useAddDocument = async (uid, col, data) => {
+export const useAddDocument = async (uid, col, data, id) => {
   try {
-    const userDocRef = doc(db, "users", uid);
+    const userDocRef = doc(db, "users", uid);  
+    const collectionRef = collection(userDocRef, col);   
+   
+    const docRef = doc(collectionRef, id);  
+    await setDoc(docRef, data);  
 
-    const collectionRef = collection(userDocRef, col);
-
-    const docRef = await addDoc(collectionRef, data);
   } catch (error) {
-    setError("Algo deu errado, tente novamente mais tarde.");
   }
+
 };
