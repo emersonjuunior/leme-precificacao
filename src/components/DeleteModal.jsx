@@ -2,16 +2,32 @@ import { useState } from "react";
 import { useDeleteDocument } from "../hooks/useDeleteDocument";
 import { useAuthValue } from "../context/AuthContext";
 
-const CreateModal = ({ toggleDeleteModal, expenseId, currentExpense }) => {
+const CreateModal = ({
+  typeOfExpense,
+  toggleDeleteModal,
+  expenseId,
+  currentExpense,
+  showNotification,
+}) => {
   const { user } = useAuthValue();
-  const { fixedExpenses, setFixedExpenses } = useAuthValue();
+  const { fixedExpenses, setFixedExpenses, variableExpenses, setVariableExpenses } = useAuthValue();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setFixedExpenses( prev => prev.filter(expense => expense.id != expenseId))
+    if(typeOfExpense === "fixedExpenses"){
+      setFixedExpenses((prev) =>
+        prev.filter((expense) => expense.id != expenseId)
+      );
+    } else {
+      setVariableExpenses((prev) =>
+        prev.filter((expense) => expense.id != expenseId)
+      );
+    }
+
     toggleDeleteModal();
-    useDeleteDocument(user.uid, "fixedExpenses", expenseId);
+    useDeleteDocument(user.uid, typeOfExpense, expenseId);
+    showNotification("Despesa apagada com sucesso.");
   };
 
   return (
@@ -25,7 +41,8 @@ const CreateModal = ({ toggleDeleteModal, expenseId, currentExpense }) => {
           Apagar despesa
         </h2>
         <p className="mb-8">
-          Tem certeza que deseja apagar a despesa <span className="font-bold">{currentExpense}</span>?
+          Tem certeza que deseja apagar a despesa{" "}
+          <span className="font-bold">{currentExpense}</span>?
         </p>
         <form
           className="flex flex-col gap-4 w-full mx-auto justify-center items-center"

@@ -24,7 +24,7 @@ const Header = () => {
       <menu className="px-2 md:pr-10 md:scale-125">
         <BurgerMenu toggleMenu={toggleMenu} menu={menu} />
       </menu>
-      {menu && <Menu />}
+      {menu && <Menu toggleMenu={toggleMenu} />}
     </header>
   );
 };

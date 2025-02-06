@@ -3,13 +3,20 @@ import { useUpdateDocument } from "../hooks/useUpdateDocument";
 import { useAuthValue } from "../context/AuthContext";
 
 const CreateModal = ({
+  typeOfExpense,
   toggleUpdateModal,
   expenseId,
   currentExpense,
   expenseValue,
+  showNotification,
 }) => {
   const { user } = useAuthValue();
-  const { fixedExpenses, setFixedExpenses } = useAuthValue();
+  const {
+    fixedExpenses,
+    setFixedExpenses,
+    variableExpenses,
+    setVariableExpenses,
+  } = useAuthValue();
   const [name, setName] = useState(currentExpense);
   const [value, setValue] = useState(expenseValue);
 
@@ -27,17 +34,26 @@ const CreateModal = ({
       return;
     }
 
-    setFixedExpenses((expense) => expense.filter((e) => e.id != expenseId));
-    setFixedExpenses((prev) => [...prev, data]);
-    useUpdateDocument(user.uid, "fixedExpenses", expenseId, data);
+    if (typeOfExpense === "fixedExpenses") {
+      setFixedExpenses((expense) => expense.filter((e) => e.id != expenseId));
+      setFixedExpenses((prev) => [...prev, data]);
+    } else {
+      setVariableExpenses((expense) =>
+        expense.filter((e) => e.id != expenseId)
+      );
+      setVariableExpenses((prev) => [...prev, data]);
+    }
+
+    useUpdateDocument(user.uid, typeOfExpense, expenseId, data);
+    showNotification("Despesa editada com sucesso.");
   };
 
   return (
     <div className="w-full h-full inset-0 bg-black/30 border-2 fixed flex justify-center items-center z-30">
       <div className="bg-gray-50 w-full max-w-[480px] mx-2 rounded-lg">
-        <div className="bg-blue-800 text-white w-full relative px-8 h-[70px] flex items-center mb-6 rounded-t-lg shadow-md">
+        <div className="bg-slate-500 text-white w-full relative px-8 h-[70px] flex items-center mb-6 rounded-t-lg shadow-md">
           <h2 className="text-4xl font-medium">
-            Editar {currentExpense}
+            Editar <span className="font-bold">{currentExpense}</span>
           </h2>
           <i
             className="fa-solid fa-x absolute cursor-pointer top-3 right-3"
@@ -48,7 +64,6 @@ const CreateModal = ({
           className="flex flex-col gap-4 w-full mx-auto justify-center items-center"
           onSubmit={handleSubmit}
         >
-          
           <label className="flex flex-col">
             <span className="text-lg">Nome</span>
             <input

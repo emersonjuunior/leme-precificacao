@@ -2,9 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import { useAddDocument } from "../hooks/useAddDocument";
 import { useAuthValue } from "../context/AuthContext";
 
-const CreateModal = ({ title, toggleCreateModal, commonExpense }) => {
+const CreateModal = ({ typeOfExpense, title, toggleCreateModal, commonExpense, showNotification }) => {
   const { user } = useAuthValue();
-  const { fixedExpenses, setFixedExpenses } = useAuthValue();
+  const { fixedExpenses, setFixedExpenses, variableExpenses, setVariableExpenses } = useAuthValue();
   const [name, setName] = useState(commonExpense ? commonExpense : "");
   const [value, setValue] = useState("");
   const inputNameRef = useRef();
@@ -32,14 +32,19 @@ const CreateModal = ({ title, toggleCreateModal, commonExpense }) => {
     };
 
     toggleCreateModal();
-    setFixedExpenses((prev) => [data, ...prev]);
-    await useAddDocument(user.uid, "fixedExpenses", data, id);
+    if(typeOfExpense === "fixedExpenses"){
+      setFixedExpenses((prev) => [data, ...prev]);
+    } else {
+      setVariableExpenses((prev) => [data, ...prev]);
+    }
+    await useAddDocument(user.uid, typeOfExpense, data, id);
+    showNotification("Despesa adicionada com sucesso.")
   };
 
   return (
     <div className="w-full h-full inset-0 bg-black/30 fixed flex justify-center items-center z-30">
       <div className="bg-gray-50 w-full max-w-[470px] mx-2 rounded-lg">
-        <div className="bg-blue-800 text-white w-full relative px-8 h-[70px] flex items-center mb-6 rounded-t-lg shadow-md">
+        <div className="bg-slate-500 text-white w-full relative px-8 h-[70px] flex items-center mb-6 rounded-t-lg shadow-md">
           <h2 className="text-4xl font-medium">{title}</h2>
           <i
             className="fa-solid fa-x absolute cursor-pointer top-3 right-3"
