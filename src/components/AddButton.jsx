@@ -1,11 +1,11 @@
-const AddButton = () => {
+const AddButton = ({text}) => {
   return (
     <button
       type="button"
       className="group relative w-[240px] h-[50px] cursor-pointer flex items-center border border-[#34974d] bg-[#3aa856] transition-all duration-300 hover:bg-[#34974d] active:border-[#2e8644]"
     >
       <span className="transform translate-x-[30px] text-white font-semibold transition-all duration-300 group-hover:text-transparent">
-        Adicionar Despesa
+        {text}
       </span>
       <span className="absolute transform translate-x-[190px] h-full w-[50px] bg-[#34974d] flex items-center justify-center transition-all duration-300 group-hover:w-[240px] group-hover:translate-x-0 active:bg-[#2e8644]">
         <svg

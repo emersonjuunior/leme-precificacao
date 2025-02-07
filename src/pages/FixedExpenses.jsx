@@ -55,13 +55,13 @@ const FixedExpenses = () => {
   };
 
   return (
-    <section className="md:px-4 mb-10">
+    <main className="md:px-4 mb-10">
       <div className="relative w-full max-w-[1400px] bg-gray-200 mx-auto text-zinc-700 md:min-h-[700px] min-h-[400px] rounded-lg shadow-lg">
         <div className="px-6 md:px-14 pt-6 bg-gray-300 flex flex-col justify-center rounded-t-lg">
           <h1 className="text-5xl mb-5 font-medium">Despesas Fixas</h1>
           <div className="flex flex-wrap gap-5 md:gap-8 items-center mb-8">
             <div onClick={toggleCreateModal}>
-              <AddButton />
+            <AddButton text={"Adicionar Despesa"} />
             </div>
             <button
               onClick={toggleCommonExpensesModal}
@@ -166,7 +166,7 @@ const FixedExpenses = () => {
       {notification && (
         <Success msg={msg} closeNotification={closeNotification} />
       )}
-    </section>
+    </main>
   );
 };
 

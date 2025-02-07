@@ -3,8 +3,7 @@ import { useAddDocument } from "../hooks/useAddDocument";
 import { useAuthValue } from "../context/AuthContext";
 
 const CreateModal = ({ typeOfExpense, title, toggleCreateModal, commonExpense, showNotification }) => {
-  const { user } = useAuthValue();
-  const { fixedExpenses, setFixedExpenses, variableExpenses, setVariableExpenses } = useAuthValue();
+  const { user, fixedExpenses, setFixedExpenses, variableExpenses, setVariableExpenses } = useAuthValue();
   const [name, setName] = useState(commonExpense ? commonExpense : "");
   const [value, setValue] = useState("");
   const inputNameRef = useRef();

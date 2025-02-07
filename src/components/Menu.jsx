@@ -20,6 +20,9 @@ const Menu = ({ toggleMenu }) => {
           <li onClick={toggleMenu}>
             <Link to="/despesas-variaveis">Despesas Variáveis</Link>
           </li>
+          <li onClick={toggleMenu}>
+            <Link to="/servicos">Meus Serviços</Link>
+          </li>
           <li
             className="cursor-pointer"
             onClick={() => {

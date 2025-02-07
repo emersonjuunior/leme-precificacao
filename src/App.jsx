@@ -20,6 +20,7 @@ import Home from "./pages/Home";
 import WorkValue from "./pages/WorkValue";
 import FixedExpenses from "./pages/FixedExpenses";
 import VariableExpenses from "./pages/VariableExpenses"
+import Services from "./pages/Services"
 
 function App() {
   const [user, setUser] = useState(null);
@@ -90,6 +91,10 @@ function App() {
             <Route
               path="/despesas-variaveis"
               element={user ? <VariableExpenses /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/servicos"
+              element={user ? <Services /> : <Navigate to="/" />}
             />
           </Routes>
         </BrowserRouter>
