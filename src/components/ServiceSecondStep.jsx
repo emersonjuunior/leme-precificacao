@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ServiceSecondStep = ({materials, setMaterials}) => {
+const ServiceSecondStep = ({ materials, setMaterials }) => {
   const [materialName, setMaterialName] = useState("");
   const [value, setValue] = useState("");
   const [quantityServices, setQuantityServices] = useState("");
@@ -28,17 +28,22 @@ const ServiceSecondStep = ({materials, setMaterials}) => {
   };
 
   const deleteMaterial = (name) => {
-    setMaterials(prev => prev.filter(material => material.materialName != name))
-  }
+    setMaterials((prev) =>
+      prev.filter((material) => material.materialName != name)
+    );
+  };
 
   return (
     <div>
       <div className="px-8">
         {" "}
         <p className="text-zinc-900 mb-2">
-          Preencha abaixo os materiais que você utiliza para a realização do
-          serviço. Se o serviço não tiver nenhum material de custo, basta clicar
-          em "Concluir".
+          Preencha abaixo os materiais que você{" "}
+          <span className="font-medium">
+            utiliza para a realização do serviço.
+          </span>{" "}
+          Se o serviço não tiver nenhum material de custo,{" "}
+          <span className="font-medium">basta clicar em "Concluir".</span>
         </p>
         <div className="flex flex-col gap-2 w-full">
           <div className="flex gap-4">

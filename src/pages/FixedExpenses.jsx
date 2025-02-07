@@ -146,10 +146,10 @@ const FixedExpenses = () => {
       )}
       {deleteModal && (
         <DeleteModal
-          typeOfExpense={"fixedExpenses"}
+          type={"fixedExpenses"}
           toggleDeleteModal={toggleDeleteModal}
-          expenseId={expenseId}
-          currentExpense={currentExpense}
+          id={expenseId}
+          name={currentExpense}
           showNotification={showNotification}
         />
       )}

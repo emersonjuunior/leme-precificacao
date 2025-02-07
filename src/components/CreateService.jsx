@@ -3,7 +3,7 @@ import ServiceSecondStep from "./ServiceSecondStep";
 import { useAuthValue } from "../context/AuthContext";
 import { useAddDocument } from "../hooks/useAddDocument";
 
-const CreateService = ({ toggleCreateService }) => {
+const CreateService = ({ toggleCreateService, showNotification }) => {
   const { user, services, setServices } = useAuthValue();
   const [materials, setMaterials] = useState([]);
   const [newService, setNewService] = useState(null);
@@ -28,7 +28,9 @@ const CreateService = ({ toggleCreateService }) => {
   };
 
   const handleSecondStep = async () => {
-    let service;
+    let service = {
+      ...newService
+    }
     if (materials.length > 0) {
       service = {
         ...newService,
@@ -36,8 +38,10 @@ const CreateService = ({ toggleCreateService }) => {
       }
     }
 
-    toggleCreateService();
+    setServices((prev) => [service, ...prev]);
     await useAddDocument(user.uid, "services", service, id);
+    toggleCreateService();
+    showNotification("Serviço adicionado com sucesso.")
     setNewService(null);
   };
 

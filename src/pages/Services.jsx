@@ -2,13 +2,38 @@ import { useAuthValue } from "../context/AuthContext";
 import AddButton from "../components/AddButton";
 import { useState } from "react";
 import CreateService from "../components/CreateService";
+import DeleteModal from "../components/DeleteModal";
+import Success from "../components/Success";
 
 const Services = () => {
   const { services, setServices } = useAuthValue();
+  const [deleteModal, setDeleteModal] = useState(false);
   const [createService, setCreateService] = useState(false);
+  const [currentService, setCurrentService] = useState(null);
+  const [serviceId, setServiceId] = useState(null);
+  const [notification, setNotification] = useState(false);
+  const [msg, setMsg] = useState(null);
+
+  const showNotification = (msg) => {
+    setNotification(true);
+    setMsg(msg);
+    setTimeout(() => {
+      setNotification(false);
+    }, 2700);
+  };
+
+  const closeNotification = () => {
+    setNotification(false);
+  };
 
   const toggleCreateService = () => {
     setCreateService((prev) => !prev);
+  };
+
+  const toggleDeleteModal = (id, name) => {
+    setCurrentService(name);
+    setServiceId(id);
+    setDeleteModal((prev) => !prev);
   };
 
   return (
@@ -22,7 +47,7 @@ const Services = () => {
             </div>
           </div>
         </div>
-        {services.length === 0 ? (
+        {services && services.length === 0 ? (
           <div className="w-full flex items-center justify-center mb-2">
             <div className="flex items-center justify-center flex-col">
               <img
@@ -46,27 +71,16 @@ const Services = () => {
                 <div className="flex flex-col gap-4">
                   <h4 className="text-4xl font-medium">{service.name}</h4>
                   <div className="flex items-end">
-                    <p className="text-4xl font-medium mr-1">
-                      {service.value}%
-                    </p>
-                    <span className="text-lg">/mês</span>
+                    <p className="text-4xl font-medium mr-1">{service.time}</p>
+                    <span className="text-lg">minutos</span>
                   </div>
                   <div className="flex w-full items-center gap-4">
-                    <button
-                      onClick={() =>
-                        toggleUpdateModal(
-                          service.id,
-                          service.name,
-                          service.value
-                        )
-                      }
-                      className=" px-4 py-2 bg-blue-500 hover:bg-blue-600 transition-200 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer"
-                    >
+                    <button className=" px-4 py-2 bg-blue-500 hover:bg-blue-600 transition-200 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer">
                       <i className="fa-solid fa-pencil"></i>
                     </button>
                     <button
                       onClick={() =>
-                        toggleDeleteModal(expense.id, expense.name)
+                        toggleDeleteModal(service.id, service.name)
                       }
                       className="px-4 py-2 bg-red-700 hover:bg-red-800 transition-200 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer"
                     >
@@ -80,7 +94,22 @@ const Services = () => {
         )}
       </div>
       {createService && (
-        <CreateService toggleCreateService={toggleCreateService} />
+        <CreateService
+          toggleCreateService={toggleCreateService}
+          showNotification={showNotification}
+        />
+      )}
+      {deleteModal && (
+        <DeleteModal
+          type={"services"}
+          toggleDeleteModal={toggleDeleteModal}
+          id={serviceId}
+          name={currentService}
+          showNotification={showNotification}
+        />
+      )}
+      {notification && (
+        <Success msg={msg} closeNotification={closeNotification} />
       )}
     </main>
   );
