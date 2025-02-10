@@ -3,6 +3,7 @@
     --font-sans: "Roboto";
     --animate-notification: show-notification .4s ease forwards, close-notification .5s ease 2.5s forwards;
     --animate-timer-animation: timer-animation 2s ease .2s forwards;
+    --breakpoint-menu: 1110px;
 }
 
 @layer base {

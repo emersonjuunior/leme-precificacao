@@ -34,7 +34,7 @@ const Login = () => {
 
   return (
     <main className="flex items-center justify-center mx-auto w-full max-w-[1100px] px-2">
-      <div className="hidden md:block shadow-lg w-[450px] h-[550px] md:h-[640px] rounded-lg rounded-tr-none rounded-br-none bg-[url(/banner-register.png)] bg-no-repeat bg-cover bg-center"></div>
+      <div className="hidden md:block shadow-lg w-[450px] h-[550px] md:h-[640px] bg-[url(/banner-register.png)] bg-no-repeat bg-cover bg-center"></div>
       <div className="shadow-lg flex items-center justify-center text-zinc-800 h-full w-full max-w-[650px]">
         <form
         onSubmit={handleSubmit}

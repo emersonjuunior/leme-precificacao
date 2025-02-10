@@ -49,11 +49,11 @@ const Register = () => {
 
   return (
     <main className="flex items-center justify-center mx-auto w-full px-2">
-      <div className="hidden md:block shadow-lg w-[450px] h-[550px] md:h-[640px] bg-[url(/banner-register.png)] bg-no-repeat bg-cover bg-center "></div>
-      <div className="shadow-lg flex items-center justify-center text-zinc-800 h-full w-full max-w-[650px]">
+      <div className="hidden md:block shadow-lg w-[450px] h-[550px] md:h-[640px] bg-[url(/banner-register.png)] bg-no-repeat bg-cover bg-center"></div>
+      <div className="shadow-lg flex items-center justify-center text-zinc-800 h-full w-full max-w-[650px] rounded-lg">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col justify-center bg-slate-300 h-[550px] md:h-[640px] w-full px-10"
+          className="flex flex-col justify-center bg-slate-300 h-[550px] md:h-[640px] w-full px-10 rounded-lg md:rounded-tl-none md:rounded-bl-none"
         >
           <h2 className="text-5xl text-center font-bold mb-2">Cadastro</h2>
           <div className="flex flex-col gap-4 w-full items-center justify-center mx-auto">
