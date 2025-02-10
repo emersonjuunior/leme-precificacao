@@ -45,7 +45,7 @@ const UpdateService = ({
       <div className="w-full h-full inset-0 bg-black/30 border-2 fixed flex justify-center items-center z-30">
         <div className="bg-gray-50 w-full max-w-[650px] mx-2 rounded-lg">
           <div className="bg-slate-500 text-white w-full relative px-8 h-[70px] flex items-center mb-6 rounded-t-lg shadow-md">
-            <h2 className="text-4xl font-medium">
+            <h2 className="text-4xl font-medium truncate">
               Editar <span className="font-bold">{name}</span>
             </h2>
             <i
@@ -58,7 +58,7 @@ const UpdateService = ({
             className="flex flex-col w-full mx-auto"
           >
             <div className="p-3">
-              <h2 className="text-xl font-medium">Serviço {name}</h2>
+              <h2 className="text-xl font-medium truncate">Serviço {name}</h2>
               <div className="flex w-full gap-4 mb-3">
                 <label className="flex flex-1 flex-col">
                   <span>Nome</span>

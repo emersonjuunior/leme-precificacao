@@ -52,7 +52,7 @@ const CreateModal = ({
     <div className="w-full h-full inset-0 bg-black/30 border-2 fixed flex justify-center items-center z-30">
       <div className="bg-gray-50 w-full max-w-[480px] mx-2 rounded-lg">
         <div className="bg-slate-500 text-white w-full relative px-8 h-[70px] flex items-center mb-6 rounded-t-lg shadow-md">
-          <h2 className="text-4xl font-medium">
+          <h2 className="text-4xl font-medium truncate">
             Editar <span className="font-bold">{currentExpense}</span>
           </h2>
           <i

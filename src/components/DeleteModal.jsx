@@ -44,7 +44,7 @@ const DeleteModal = ({
         <h2 className="text-4xl font-medium text-slate-700 my-5">
           Apagar {type === "services" ? "Serviço" : "Despesa"}
         </h2>
-        <p className={type === "services" ? "mb-4" : "mb-8"}>
+        <p className={type === "services" ? "mb-4 truncate" : "mb-8 truncate"}>
           Tem certeza que deseja apagar {""}
           {type === "services" ? "o serviço" : "a despesa"} {""}
           <span className="font-bold">{name}</span>?

@@ -79,14 +79,22 @@ const Services = () => {
             {services.map((service, index) => (
               <div
                 key={index}
-                className="bg-linear-180 from-slate-300 to-slate-300 text-zinc-700 w-[300px] h-[190px] lg:w-[380px] lg:h-[220px] rounded-xl flex items-center gap-6 shadow-lg"
+                className="bg-linear-180 from-slate-300 to-slate-300 text-zinc-700 w-[310px] h-[210px] lg:w-[420px] lg:h-[260px] rounded-xl flex items-center justify-start gap-6 shadow-lg"
               >
-                <div className="h-8/10 w-1 ml-4 rounded-md bg-linear-180 from-sky-400 to-indigo-800"></div>
+                <div className="h-8/10 min-w-1 ml-4 rounded-md bg-linear-180 from-sky-400 to-indigo-800"></div>
                 <div className="flex flex-col gap-4">
-                  <h4 className="text-4xl font-medium">{service.name}</h4>
+                  <h4 className="text-3xl md:text-4xl font-medium lg:w-[360px] w-[270px] truncate">
+                    {service.name}
+                  </h4>
                   <div className="flex items-end">
-                    <p className="text-4xl font-medium mr-1">{service.time}</p>
+                    <p className="text-3xl font-medium mr-1">{service.time}</p>
                     <span className="text-lg">minutos</span>
+                  </div>
+                  <div className="truncate lg:w-[360px] w-[270px]">
+                    <h4 className="text-2xl font-medium inline">Materiais:</h4>{" "}
+                    {service.materials.map((material) => (
+                      <span className="text-lg">{material.materialName}, </span>
+                    ))}
                   </div>
                   <div className="flex w-full items-center gap-4">
                     <button

@@ -91,12 +91,12 @@ const FixedExpenses = () => {
                 key={index}
                 className="bg-linear-180 from-slate-300 to-slate-300 text-zinc-700 w-[300px] h-[190px] lg:w-[380px] lg:h-[220px] rounded-xl flex items-center gap-6 shadow-lg"
               >
-                <div className="h-8/10 w-1 ml-4 rounded-md bg-linear-180 from-sky-400 to-indigo-800"></div>
+                <div className="h-8/10 min-w-1 ml-4 rounded-md bg-linear-180 from-sky-400 to-indigo-800"></div>
                 <div className="flex flex-col gap-4">
-                  <h4 className="text-4xl font-medium">{expense.name}</h4>
-                  <div className="flex items-end">
+                  <h4 className="text-4xl font-medium lg:w-[350px] w-[250px] truncate">{expense.name}</h4>
+                  <div className="flex items-end lg:w-[330px] w-[230px] truncate">
                     <span className="text-lg">R$</span>
-                    <p className="text-4xl font-medium">{expense.value}</p>
+                    <p className="text-3xl md:text-4xl font-medium">{expense.value}</p>
                     <span className="text-lg">/mês</span>
                   </div>
                   <div className="flex w-full items-center gap-4">
