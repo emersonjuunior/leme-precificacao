@@ -2,6 +2,7 @@ import { useAuthValue } from "../context/AuthContext";
 import AddButton from "../components/AddButton";
 import { useState } from "react";
 import CreateService from "../components/CreateService";
+import UpdateService from "../components/UpdateService.jsx";
 import DeleteModal from "../components/DeleteModal";
 import Success from "../components/Success";
 
@@ -9,8 +10,11 @@ const Services = () => {
   const { services, setServices } = useAuthValue();
   const [deleteModal, setDeleteModal] = useState(false);
   const [createService, setCreateService] = useState(false);
+  const [updateService, setUpdateService] = useState(false);
   const [currentService, setCurrentService] = useState(null);
+  const [currentMaterials, setCurrentMaterials] = useState(null);
   const [serviceId, setServiceId] = useState(null);
+  const [serviceTime, setServiceTime] = useState(null);
   const [notification, setNotification] = useState(false);
   const [msg, setMsg] = useState(null);
 
@@ -26,13 +30,23 @@ const Services = () => {
     setNotification(false);
   };
 
-  const toggleCreateService = () => {
+  const toggleCreateService = (id, name) => {
+    setCurrentService(name);
+    setServiceId(id);
     setCreateService((prev) => !prev);
   };
 
-  const toggleDeleteModal = (id, name) => {
-    setCurrentService(name);
+  const toggleUpdateService = (id, name, time, materials) => {
     setServiceId(id);
+    setCurrentService(name);
+    setServiceTime(time);
+    setCurrentMaterials(materials);
+    setUpdateService((prev) => !prev);
+  };
+
+  const toggleDeleteModal = (id, name) => {
+    setServiceId(id);
+    setCurrentService(name);
     setDeleteModal((prev) => !prev);
   };
 
@@ -75,7 +89,17 @@ const Services = () => {
                     <span className="text-lg">minutos</span>
                   </div>
                   <div className="flex w-full items-center gap-4">
-                    <button className=" px-4 py-2 bg-blue-500 hover:bg-blue-600 transition-200 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer">
+                    <button
+                      onClick={() =>
+                        toggleUpdateService(
+                          service.id,
+                          service.name,
+                          service.time,
+                          service.materials
+                        )
+                      }
+                      className=" px-4 py-2 bg-blue-500 hover:bg-blue-600 transition-200 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer"
+                    >
                       <i className="fa-solid fa-pencil"></i>
                     </button>
                     <button
@@ -105,6 +129,17 @@ const Services = () => {
           toggleDeleteModal={toggleDeleteModal}
           id={serviceId}
           name={currentService}
+          showNotification={showNotification}
+        />
+      )}
+      {updateService && (
+        <UpdateService
+          toggleUpdateService={toggleUpdateService}
+          id={serviceId}
+          name={currentService}
+          time={serviceTime}
+          materials={currentMaterials}
+          setMaterials={setCurrentMaterials}
           showNotification={showNotification}
         />
       )}
