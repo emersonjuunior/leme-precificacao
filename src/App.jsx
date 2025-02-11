@@ -19,8 +19,8 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import WorkValue from "./pages/WorkValue";
 import FixedExpenses from "./pages/FixedExpenses";
-import VariableExpenses from "./pages/VariableExpenses"
-import Services from "./pages/Services"
+import VariableExpenses from "./pages/VariableExpenses";
+import Services from "./pages/Services";
 
 function App() {
   const [user, setUser] = useState(null);

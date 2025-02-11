@@ -5,6 +5,7 @@ import { useAuthValue } from "../context/AuthContext";
 
 const WorkValue = () => {
   const { user } = useAuthValue();
+  const [workValue, setWorkValue] = useState(null);
   const [salary, setSalary] = useState("");
   const [days, setDays] = useState("");
   const [hours, setHours] = useState("");
@@ -19,12 +20,15 @@ const WorkValue = () => {
     e.preventDefault();
 
     let value = salary / days / hours;
+    value = value.toFixed(2);
     if (additional) {
       value = (value * 1.09).toFixed(2);
     }
 
+    setWorkValue(value);
+
     const workValue = {
-      salary,
+      salary: additional ? salary * 1.09 : salary,
       days,
       hours,
       additional,
@@ -39,10 +43,10 @@ const WorkValue = () => {
     setHours("");
     setAdditional(false);
 
-    setSuccess(true)
+    setSuccess(true);
     setTimeout(() => {
-      setSuccess(false)
-    }, 2500)
+      setSuccess(false);
+    }, 2500);
   };
 
   return (
@@ -99,7 +103,7 @@ const WorkValue = () => {
         {success && (
           <div className="flex items-center px-8 py-2 text-green-800 bg-green-100 border border-green-400 rounded-lg rounded-b-none animate-notification relative">
             <i className="fas fa-check-circle text-green-600 text-xl mr-2"></i>
-            <span>Valor do trabalho salvo com sucesso!</span>
+            <span>O valor da sua hora de trabalho é: {workValue}</span>
             <div className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-[#05dd34] animate-timer-animation"></div>
           </div>
         )}

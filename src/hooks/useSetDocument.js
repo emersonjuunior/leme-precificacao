@@ -3,7 +3,9 @@ import { doc, setDoc } from "firebase/firestore";
 
 export const useSetDocument = async (uid, subCol, data) => {
   try {
-    const docRef = doc(db, "users", uid, subCol, "data"); // 'data' é apenas um ID fixo para o documento
+    const docRef = doc(db, "users", uid, subCol, "data"); 
     await setDoc(docRef, data);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 };
