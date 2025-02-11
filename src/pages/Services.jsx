@@ -52,7 +52,7 @@ const Services = () => {
 
   return (
     <main className="md:px-4 mb-10">
-      <div className="relative w-full max-w-[1400px] bg-gray-200 mx-auto text-zinc-700 md:min-h-[700px] min-h-[400px] rounded-lg shadow-lg">
+      <div className="relative w-full max-w-[1450px] bg-gray-200 mx-auto text-zinc-700 md:min-h-[700px] min-h-[400px] rounded-lg shadow-lg">
         <div className="px-6 md:px-14 pt-6 bg-gray-300 flex flex-col justify-center rounded-t-lg">
           <h1 className="text-5xl mb-5 font-medium">Meus Serviços</h1>
           <div className="flex flex-wrap gap-5 md:gap-8 items-center mb-8">
@@ -90,12 +90,19 @@ const Services = () => {
                     <p className="text-3xl font-medium mr-1">{service.time}</p>
                     <span className="text-lg">minutos</span>
                   </div>
-                  <div className="truncate lg:w-[360px] w-[270px]">
-                    <h4 className="text-2xl font-medium inline">Materiais:</h4>{" "}
-                    {service.materials.map((material) => (
-                      <span className="text-lg">{material.materialName}, </span>
-                    ))}
-                  </div>
+                  {service.materials.length > 0 && (
+                    <div className="truncate lg:w-[360px] w-[270px]">
+                      <h4 className="text-2xl font-medium inline">
+                        Materiais:
+                      </h4>{" "}
+                      {service.materials.map((material, index) => (
+                        <span className="text-lg">
+                          {material.materialName}
+                          {index === service.materials.length - 1 ? "" : ", "}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                   <div className="flex w-full items-center gap-4">
                     <button
                       onClick={() =>

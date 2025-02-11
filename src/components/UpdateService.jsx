@@ -9,7 +9,7 @@ const UpdateService = ({
   time,
   materials,
   setMaterials,
-  showNotification
+  showNotification,
 }) => {
   const { user, setServices } = useAuthValue();
   const [serviceName, setServiceName] = useState(name);
@@ -33,11 +33,24 @@ const UpdateService = ({
       materials: [...materials],
     };
 
+    useUpdateDocument(user.uid, "services", id, data);
     setServices((service) => service.filter((e) => e.id != id));
     setServices((prev) => [...prev, data]);
     toggleUpdateService();
-    showNotification("Despesa editada com sucesso.");
-    useUpdateDocument(user.uid, "services", id, data);
+    showNotification("Serviço editado com sucesso.");
+  };
+
+  const addMaterial = () => {
+    setMaterials((prev) => [
+      ...prev,
+      { materialName: "", value: "", quantityServices: "" },
+    ]);
+  };
+
+  const removeMaterial = (name) => {
+    setMaterials((prev) =>
+      prev.filter((material) => material.materialName != name)
+    );
   };
 
   return (
@@ -83,14 +96,23 @@ const UpdateService = ({
               </div>
             </div>
             <div className="w-9/10 h-[1px] bg-gray-300 self-center mb-4"></div>
-            {materials && (
+            {materials.length > 0 ? (
               <div className="bg-gray-200 max-h-[300px] overflow-auto">
                 <h3 className="font-medium text-lg p-3">Materiais de Custo</h3>
                 {materials.map((material, index) => (
                   <div key={index} className="p-3">
-                    <h4 className="font-medium mb-1">
-                      Material {material.materialName}
-                    </h4>
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium">
+                        Material {material.materialName}
+                      </h4>
+                      <button
+                        type="button"
+                        className="bg-red-500 text-gray-200 text-sm px-2 py-1 rounded cursor-pointer hover:bg-red-400 duration-300"
+                        onClick={() => removeMaterial(material.materialName)}
+                      >
+                        Apagar material
+                      </button>
+                    </div>
                     <div className="flex w-full gap-4">
                       <label className="flex flex-col flex-1 mb-2">
                         <span className="text-sm">Nome</span>
@@ -105,6 +127,7 @@ const UpdateService = ({
                               e.target.value
                             )
                           }
+                          required
                         />
                       </label>
                       <label className="flex flex-col flex-1">
@@ -120,6 +143,7 @@ const UpdateService = ({
                               parseFloat(e.target.value)
                             )
                           }
+                          required
                         />
                       </label>
                     </div>
@@ -137,12 +161,33 @@ const UpdateService = ({
                               parseInt(e.target.value)
                             )
                           }
+                          required
                         />
                       </label>
                       <div className="flex-1"></div>
                     </div>
                   </div>
                 ))}
+                <div className="flex justify-center items-center mb-3">
+                  <button
+                    type="button"
+                    onClick={addMaterial}
+                    className="bg-green-500 rounded-lg py-1 px-3 text-gray-50 cursor-pointer hover:bg-green-400 duration-200"
+                  >
+                    <i className="fa-solid fa-plus"></i> Novo Material
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex w-full justify-center flex-col items-center gap-2 mb-3">
+                <p>No momento, você não tem nenhum <span className="font-medium">material de custo</span> relacionado a esse serviço.</p>
+                <button
+                  type="button"
+                  onClick={addMaterial}
+                  className="bg-green-500 rounded-lg py-1 px-3 text-gray-50 cursor-pointer hover:bg-green-400 duration-200"
+                >
+                  <i className="fa-solid fa-plus"></i> Novo Material
+                </button>
               </div>
             )}
             <div className="flex items-center justify-end gap-4 bg-gray-100 rounded-b-lg border-gray-200 border-t-1 w-full px-8 py-5">
