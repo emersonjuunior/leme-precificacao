@@ -9,6 +9,7 @@ const WorkValue = () => {
   const [days, setDays] = useState("");
   const [hours, setHours] = useState("");
   const [additional, setAdditional] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const toggleCheckbox = () => {
     setAdditional((prev) => !prev);
@@ -37,11 +38,22 @@ const WorkValue = () => {
     setDays("");
     setHours("");
     setAdditional(false);
+
+    setSuccess(true)
+    setTimeout(() => {
+      setSuccess(false)
+    }, 2500)
   };
 
   return (
-    <section className="w-full flex justify-center">
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+    <section className="w-full h-[600px] flex justify-center max-w-[1200px] mx-auto rounded-lg px-3">
+      <form
+        className="flex flex-col gap-4 flex-1 justify-center items-center bg-gray-200 rounded-lg md:rounded-tr-none rounded-br-none"
+        onSubmit={handleSubmit}
+      >
+        <h1 className="font-medium text-3xl border-b-2 border-purple-600 px-2">
+          Valor da minha <span className="font-bold">Hora de Trabalho</span>
+        </h1>
         <label className="flex flex-col">
           <span>Salário desejado</span>
 
@@ -84,7 +96,21 @@ const WorkValue = () => {
         >
           Calcular
         </button>
+        {success && (
+          <div className="flex items-center px-8 py-2 text-green-800 bg-green-100 border border-green-400 rounded-lg rounded-b-none animate-notification relative">
+            <i className="fas fa-check-circle text-green-600 text-xl mr-2"></i>
+            <span>Valor do trabalho salvo com sucesso!</span>
+            <div className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-[#05dd34] animate-timer-animation"></div>
+          </div>
+        )}
       </form>
+      <div className="flex-1 items-center justify-center hidden md:flex rounded-lg rounded-tl-none rounded-bl-none bg-gray-200">
+        <img
+          src="/work-value-time.png"
+          alt="Ilustração sobre o valor do trabalho"
+          className="object-cover"
+        />
+      </div>
     </section>
   );
 };
