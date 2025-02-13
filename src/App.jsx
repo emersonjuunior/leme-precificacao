@@ -12,6 +12,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 
 // components
 import Header from "./components/Header";
+import Loading from "./components/Loading";
 
 // pages
 import Register from "./pages/Register";
@@ -50,7 +51,7 @@ function App() {
   } = useFetchDocuments(user?.uid);
 
   if (authLoading || documentsLoading) {
-    return <p>Carregando...</p>;
+    return <Loading />;
   }
 
   return (
