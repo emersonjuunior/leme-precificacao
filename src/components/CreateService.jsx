@@ -4,13 +4,13 @@ import { useAuthValue } from "../context/AuthContext";
 import { useAddDocument } from "../hooks/useAddDocument";
 
 const CreateService = ({ toggleCreateService, showNotification }) => {
-  const { user, services, setServices } = useAuthValue();
+  const { user, setServices } = useAuthValue();
   const [materials, setMaterials] = useState([]);
   const [newService, setNewService] = useState(null);
   const [id, setId] = useState(null);
-  const [actualService, setActualService] = useState(null);
   const [name, setName] = useState("");
   const [time, setTime] = useState("");
+  const [competitivePrice, setCompetitivePrice] = useState("");
   const [step, setStep] = useState("1");
 
   const handleFirstStep = (e) => {
@@ -22,6 +22,7 @@ const CreateService = ({ toggleCreateService, showNotification }) => {
     setNewService({
       name,
       time,
+      competitivePrice,
       id: serviceId,
       createdAt: new Date(),
     });
@@ -29,19 +30,19 @@ const CreateService = ({ toggleCreateService, showNotification }) => {
 
   const handleSecondStep = async () => {
     let service = {
-      ...newService
-    }
+      ...newService,
+    };
     if (materials.length > 0) {
       service = {
         ...newService,
-        materials: [...materials]
-      }
+        materials: [...materials],
+      };
     }
 
     setServices((prev) => [service, ...prev]);
     await useAddDocument(user.uid, "services", service, id);
     toggleCreateService();
-    showNotification("Serviço adicionado com sucesso.")
+    showNotification("Serviço adicionado com sucesso.");
     setNewService(null);
   };
 
@@ -112,13 +113,23 @@ const CreateService = ({ toggleCreateService, showNotification }) => {
                   required
                 />
               </label>
-              <label className="flex flex-col mb-6">
+              <label className="flex flex-col">
                 <span className="text-[17px]">Tempo Médio (min)</span>
                 <input
                   className="w-[280px] md:w-[350px] border-[1.5px] border-slate-300 focus:border-b-sky-600 focus:border-b-2 rounded h-8 outline-none px-2 py-1 bg-slate-100"
                   type="number"
                   onChange={(e) => setTime(e.target.value)}
                   value={time}
+                  required
+                />
+              </label>
+              <label className="flex flex-col mb-6">
+                <span className="text-[17px]">Preço da Concorrência</span>
+                <input
+                  className="w-[280px] md:w-[350px] border-[1.5px] border-slate-300 focus:border-b-sky-600 focus:border-b-2 rounded h-8 outline-none px-2 py-1 bg-slate-100"
+                  type="number"
+                  onChange={(e) => setCompetitivePrice(e.target.value)}
+                  value={competitivePrice}
                   required
                 />
               </label>

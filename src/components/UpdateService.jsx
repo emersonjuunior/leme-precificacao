@@ -7,6 +7,7 @@ const UpdateService = ({
   id,
   name,
   time,
+  competitivePrice,
   materials,
   setMaterials,
   showNotification,
@@ -14,6 +15,8 @@ const UpdateService = ({
   const { user, setServices } = useAuthValue();
   const [serviceName, setServiceName] = useState(name);
   const [serviceTime, setServiceTime] = useState(time);
+  const [serviceCompetitivePrice, setServiceCompetitivePrice] =
+    useState(competitivePrice);
 
   const changeMaterial = (index, field, value) => {
     setMaterials((prevMaterials) =>
@@ -71,7 +74,9 @@ const UpdateService = ({
             className="flex flex-col w-full mx-auto"
           >
             <div className="p-3">
-              <h2 className="text-xl font-medium truncate">Serviço {name}</h2>
+              <h2 className="text-xl font-medium truncate mb-2">
+                Serviço {name}
+              </h2>
               <div className="flex w-full gap-4 mb-3">
                 <label className="flex flex-1 flex-col">
                   <span>Nome</span>
@@ -93,10 +98,20 @@ const UpdateService = ({
                     required
                   />
                 </label>
+                <label className="flex flex-1 flex-col">
+                  <span>Preço da Concorrência</span>
+                  <input
+                    className="border-[1.5px] border-slate-300 focus:border-b-sky-600 focus:border-b-2 rounded h-8 outline-none px-2 py-1 bg-slate-100"
+                    type="number"
+                    value={serviceCompetitivePrice}
+                    onChange={(e) => setServiceCompetitivePrice(e.target.value)}
+                    required
+                  />
+                </label>
               </div>
             </div>
-            <div className="w-9/10 h-[1px] bg-gray-300 self-center mb-4"></div>
-            {materials.length > 0 ? (
+            <div className="w-[95%] h-[1px] bg-gray-300 self-center mb-4"></div>
+            {materials?.length > 0 ? (
               <div className="bg-gray-200 max-h-[300px] overflow-auto">
                 <h3 className="font-medium text-lg p-3">Materiais de Custo</h3>
                 {materials.map((material, index) => (
@@ -180,7 +195,11 @@ const UpdateService = ({
               </div>
             ) : (
               <div className="flex w-full justify-center flex-col items-center gap-2 mb-3">
-                <p>No momento, você não tem nenhum <span className="font-medium">material de custo</span> relacionado a esse serviço.</p>
+                <p>
+                  No momento, você não tem nenhum{" "}
+                  <span className="font-medium">material de custo</span>{" "}
+                  relacionado a esse serviço.
+                </p>
                 <button
                   type="button"
                   onClick={addMaterial}

@@ -15,6 +15,7 @@ const Services = () => {
   const [currentMaterials, setCurrentMaterials] = useState(null);
   const [serviceId, setServiceId] = useState(null);
   const [serviceTime, setServiceTime] = useState(null);
+  const [competitivePrice, setCompetitivePrice] = useState(null);
   const [notification, setNotification] = useState(false);
   const [msg, setMsg] = useState(null);
 
@@ -36,11 +37,12 @@ const Services = () => {
     setCreateService((prev) => !prev);
   };
 
-  const toggleUpdateService = (id, name, time, materials) => {
+  const toggleUpdateService = (id, name, time, price, materials) => {
     setServiceId(id);
     setCurrentService(name);
     setServiceTime(time);
-    setCurrentMaterials(materials);
+    setCompetitivePrice(price);
+    setCurrentMaterials(materials ? [...materials] : []);
     setUpdateService((prev) => !prev);
   };
 
@@ -76,59 +78,63 @@ const Services = () => {
           </div>
         ) : (
           <div className="gap-2 lg:gap-4 flex flex-wrap px-6 py-4 md:px-14 md:py-8 min-h-[550px] max-h-[550px] overflow-auto pb-6">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="bg-linear-180 from-slate-300 to-slate-300 text-zinc-700 w-[310px] h-[210px] lg:w-[420px] lg:h-[260px] rounded-xl flex items-center justify-start gap-6 shadow-lg"
-              >
-                <div className="h-8/10 min-w-1 ml-4 rounded-md bg-linear-180 from-sky-400 to-indigo-800"></div>
-                <div className="flex flex-col gap-4">
-                  <h4 className="text-3xl md:text-4xl font-medium lg:w-[360px] w-[270px] truncate">
-                    {service.name}
-                  </h4>
-                  <div className="flex items-end">
-                    <p className="text-3xl font-medium mr-1">{service.time}</p>
-                    <span className="text-lg">minutos</span>
-                  </div>
-                  {service.materials.length > 0 && (
-                    <div className="truncate lg:w-[360px] w-[270px]">
-                      <h4 className="text-2xl font-medium inline">
-                        Materiais:
-                      </h4>{" "}
-                      {service.materials.map((material, index) => (
-                        <span className="text-lg">
-                          {material.materialName}
-                          {index === service.materials.length - 1 ? "" : ", "}
-                        </span>
-                      ))}
+            {services &&
+              services.map((service, index) => (
+                <div
+                  key={index}
+                  className="bg-linear-180 from-slate-300 to-slate-300 text-zinc-700 w-[310px] h-[210px] lg:w-[420px] lg:h-[260px] rounded-xl flex items-center justify-start gap-6 shadow-lg"
+                >
+                  <div className="h-8/10 min-w-1 ml-4 rounded-md bg-linear-180 from-sky-400 to-indigo-800"></div>
+                  <div className="flex flex-col gap-4">
+                    <h4 className="text-3xl md:text-4xl font-medium lg:w-[360px] w-[270px] truncate">
+                      {service.name}
+                    </h4>
+                    <div className="flex items-end">
+                      <p className="text-3xl font-medium mr-1">
+                        {service.time}
+                      </p>
+                      <span className="text-lg">minutos</span>
                     </div>
-                  )}
-                  <div className="flex w-full items-center gap-4">
-                    <button
-                      onClick={() =>
-                        toggleUpdateService(
-                          service.id,
-                          service.name,
-                          service.time,
-                          service.materials
-                        )
-                      }
-                      className=" px-4 py-2 bg-blue-500 hover:bg-blue-600 transition-200 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer"
-                    >
-                      <i className="fa-solid fa-pencil"></i>
-                    </button>
-                    <button
-                      onClick={() =>
-                        toggleDeleteModal(service.id, service.name)
-                      }
-                      className="px-4 py-2 bg-red-700 hover:bg-red-800 transition-200 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer"
-                    >
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
+                    {service.materials?.length && (
+                      <div className="truncate lg:w-[360px] w-[270px]">
+                        <h4 className="text-2xl font-medium inline">
+                          Materiais:
+                        </h4>{" "}
+                        {service.materials.map((material, index) => (
+                          <span key={index} className="text-lg">
+                            {material.materialName}
+                            {index === service.materials.length - 1 ? "" : ", "}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <div className="flex w-full items-center gap-4">
+                      <button
+                        onClick={() =>
+                          toggleUpdateService(
+                            service.id,
+                            service.name,
+                            service.time,
+                            service.competitivePrice,
+                            service.materials
+                          )
+                        }
+                        className=" px-4 py-2 bg-blue-500 hover:bg-blue-600 transition-200 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer"
+                      >
+                        <i className="fa-solid fa-pencil"></i>
+                      </button>
+                      <button
+                        onClick={() =>
+                          toggleDeleteModal(service.id, service.name)
+                        }
+                        className="px-4 py-2 bg-red-700 hover:bg-red-800 transition-200 text-zinc-700 rounded flex justify-around gap-2 cursor-pointer"
+                      >
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         )}
       </div>
@@ -153,6 +159,7 @@ const Services = () => {
           id={serviceId}
           name={currentService}
           time={serviceTime}
+          competitivePrice={competitivePrice}
           materials={currentMaterials}
           setMaterials={setCurrentMaterials}
           showNotification={showNotification}
