@@ -6,6 +6,6 @@ export const useUpdateDocument = async (uid, col, docId, data) => {
     const docRef = doc(db, "users", uid, col, docId);
     await updateDoc(docRef, data);
   } catch (error) {
-    console.log(error)
+    
   }
 };

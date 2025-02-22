@@ -53,7 +53,7 @@ const SetPrice = ({
             <span className="text-lg">Preço</span>
             <input
               className="w-[280px] md:w-[350px] border-[1.5px] border-slate-300 focus:border-b-sky-600 focus:border-b-2 rounded h-8 outline-none px-2 py-1 bg-slate-100"
-              type="text"
+              type="number"
               onChange={(e) => setPrice(e.target.value)}
               value={price}
               required

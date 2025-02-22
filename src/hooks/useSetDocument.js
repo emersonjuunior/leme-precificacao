@@ -6,6 +6,6 @@ export const useSetDocument = async (uid, subCol, data) => {
     const docRef = doc(db, "users", uid, subCol, "data"); 
     await setDoc(docRef, data);
   } catch (error) {
-    console.log(error)
+   
   }
 };

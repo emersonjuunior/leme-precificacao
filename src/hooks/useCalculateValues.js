@@ -34,7 +34,6 @@ export const useCalculateValues = () => {
       let materialQuantity = service.materials.map(
         (material) => +material.quantityServices
       );
-      console.log(materialQuantity);
       serviceMaterials.forEach(
         (material, index) => (total += material / materialQuantity[index])
       );
