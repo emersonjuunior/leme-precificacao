@@ -33,6 +33,7 @@ const UpdateService = ({
       createdAt: new Date(),
       name: serviceName,
       time: serviceTime,
+      competitivePrice: serviceCompetitivePrice,
       materials: [...materials],
     };
 

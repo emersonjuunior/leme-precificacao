@@ -4,7 +4,7 @@ import { useSetDocument } from "../hooks/useSetDocument";
 import { useAuthValue } from "../context/AuthContext";
 
 const WorkValue = () => {
-  const { user } = useAuthValue();
+  const { user, setWorkValue: setOriginalValue } = useAuthValue();
   const [workValue, setWorkValue] = useState(null);
   const [salary, setSalary] = useState("");
   const [days, setDays] = useState("");
@@ -37,6 +37,8 @@ const WorkValue = () => {
     };
 
     useSetDocument(user.uid, "workValue", workValue);
+    setOriginalValue([workValue])
+
 
     setSalary("");
     setDays("");

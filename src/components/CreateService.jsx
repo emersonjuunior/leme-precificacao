@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import ServiceSecondStep from "./ServiceSecondStep";
 import { useAuthValue } from "../context/AuthContext";
 import { useAddDocument } from "../hooks/useAddDocument";
@@ -12,6 +12,11 @@ const CreateService = ({ toggleCreateService, showNotification }) => {
   const [time, setTime] = useState("");
   const [competitivePrice, setCompetitivePrice] = useState("");
   const [step, setStep] = useState("1");
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const handleFirstStep = (e) => {
     e.preventDefault();
@@ -111,6 +116,7 @@ const CreateService = ({ toggleCreateService, showNotification }) => {
                   onChange={(e) => setName(e.target.value)}
                   value={name}
                   required
+                  ref={inputRef}
                 />
               </label>
               <label className="flex flex-col">

@@ -15,13 +15,34 @@ export const useCalculateValues = () => {
   const calculateBreakEvenPoint = (salary) => {
     let totalFixedExpenses = calculateExpenses(fixedExpenses);
     let totalVariableExpenses = calculateExpenses(variableExpenses);
-    const breakEvenPoint =
+    let breakEvenPoint =
       ((salary + totalFixedExpenses) * totalVariableExpenses) /
         (100 - totalVariableExpenses) +
       salary +
       totalFixedExpenses;
+    breakEvenPoint = parseFloat(breakEvenPoint);
     return breakEvenPoint.toFixed(2);
   };
 
-  return { calculateExpenses, calculateBreakEvenPoint };
+  const calculateServiceCost = (service) => {
+    let total = 0;
+    let hourlyCost = workValue[0].workValue;
+    if (service.materials) {
+      let serviceMaterials = service.materials.map(
+        (material) => +material.value
+      );
+      let materialQuantity = service.materials.map(
+        (material) => +material.quantityServices
+      );
+      console.log(materialQuantity);
+      serviceMaterials.forEach(
+        (material, index) => (total += material / materialQuantity[index])
+      );
+    }
+    let serviceTime = +service.time / 60;
+    total = total + serviceTime * hourlyCost;
+    return total;
+  };
+
+  return { calculateExpenses, calculateBreakEvenPoint, calculateServiceCost };
 };

@@ -2,8 +2,20 @@ import { useState, useRef, useEffect } from "react";
 import { useAddDocument } from "../hooks/useAddDocument";
 import { useAuthValue } from "../context/AuthContext";
 
-const CreateModal = ({ typeOfExpense, title, toggleCreateModal, commonExpense, showNotification }) => {
-  const { user, fixedExpenses, setFixedExpenses, variableExpenses, setVariableExpenses } = useAuthValue();
+const CreateModal = ({
+  typeOfExpense,
+  title,
+  toggleCreateModal,
+  commonExpense,
+  showNotification,
+}) => {
+  const {
+    user,
+    fixedExpenses,
+    setFixedExpenses,
+    variableExpenses,
+    setVariableExpenses,
+  } = useAuthValue();
   const [name, setName] = useState(commonExpense ? commonExpense : "");
   const [value, setValue] = useState("");
   const inputNameRef = useRef();
@@ -31,13 +43,13 @@ const CreateModal = ({ typeOfExpense, title, toggleCreateModal, commonExpense, s
     };
 
     toggleCreateModal();
-    if(typeOfExpense === "fixedExpenses"){
+    if (typeOfExpense === "fixedExpenses") {
       setFixedExpenses((prev) => [data, ...prev]);
     } else {
       setVariableExpenses((prev) => [data, ...prev]);
     }
     await useAddDocument(user.uid, typeOfExpense, data, id);
-    showNotification("Despesa adicionada com sucesso.")
+    showNotification("Despesa adicionada com sucesso.");
   };
 
   return (
@@ -84,7 +96,7 @@ const CreateModal = ({ typeOfExpense, title, toggleCreateModal, commonExpense, s
               Adicionar despesa
             </button>
             <button
-              onClick={() => toggleCreateModal()}
+              onClick={toggleCreateModal}
               className="px-4 py-1 rounded-lg cursor-pointer"
             >
               Cancelar

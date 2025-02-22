@@ -95,7 +95,9 @@ const Services = () => {
                       </p>
                       <span className="text-lg">minutos</span>
                     </div>
-                    {service.materials?.length && (
+                    {service.materials?.length === 0 ? (
+                      <></>
+                    ) : (
                       <div className="truncate lg:w-[360px] w-[270px]">
                         <h4 className="text-2xl font-medium inline">
                           Materiais:
