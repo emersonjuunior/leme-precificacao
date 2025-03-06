@@ -10,6 +10,7 @@ export const useAddDocument = async (uid, col, data, id) => {
     await setDoc(docRef, data);  
 
   } catch (error) {
+    console.log(error)
   }
 
 };

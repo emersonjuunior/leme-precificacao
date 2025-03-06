@@ -18,18 +18,24 @@ const SetPrice = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const currentService = services.filter(
-      (service) => service.id === serviceId
-    );
+
+    const currentService = services.find((service) => service.id === serviceId);
+
+    if (!currentService) {
+      return;
+    }
+
     const updatedService = {
       ...currentService,
       price,
     };
+
     useUpdateDocument(user.uid, "services", serviceId, updatedService);
-    setServices((service) =>
-      service.filter((service) => service.id != serviceId)
-    );
+
+    setServices((prev) => prev.filter((service) => service.id !== serviceId));
+
     setServices((prev) => [...prev, updatedService]);
+
     togglePriceModal();
   };
 
