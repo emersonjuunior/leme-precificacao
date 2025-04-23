@@ -51,7 +51,7 @@ const Home = () => {
             bem-vindo ao Sistema de Precificação da{" "}
             <span className="font-medium">Leme Empresas</span>!
           </h1>
-          <p className="text-lg lg:text-2xl text-center">
+          <p className="text-lg lg:text-2xl text-center max-w-4xl">
             Antes de acessar a visão geral dos seus serviços, por favor cadastre
             os valores da sua{" "}
             <span className="font-medium">

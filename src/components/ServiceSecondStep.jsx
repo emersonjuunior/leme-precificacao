@@ -100,7 +100,7 @@ const ServiceSecondStep = ({ materials, setMaterials }) => {
               {materials.map((material, index) => (
                 <div
                   key={index}
-                  className="bg-gray-200 rounded-lg w-[150px] h-[30px] flex items-center justify-center relative"
+                  className="bg-gray-200 rounded-lg w-[150px] h-[30px] flex items-center justify-center relative overflow-hidden"
                 >
                   <i
                     className="fa-solid fa-x text-[10px] absolute cursor-pointer top-1 right-2"
