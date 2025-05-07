@@ -36,12 +36,12 @@ const CreateModal = ({
 
     if (typeOfExpense === "fixedExpenses") {
       setFixedExpenses((expense) => expense.filter((e) => e.id != expenseId));
-      setFixedExpenses((prev) => [...prev, data]);
+      setFixedExpenses((prev) => [data, ...prev]);
     } else {
       setVariableExpenses((expense) =>
         expense.filter((e) => e.id != expenseId)
       );
-      setVariableExpenses((prev) => [...prev, data]);
+      setVariableExpenses((prev) => [data, ...prev]);
     }
 
     useUpdateDocument(user.uid, typeOfExpense, expenseId, data);
