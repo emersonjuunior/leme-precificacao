@@ -1,6 +1,6 @@
 import { auth } from "../firebase/firebaseConfig";
 import {
-  getAuth,
+  sendPasswordResetEmail,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
@@ -77,6 +77,15 @@ export const useAuthentication = () => {
     signOut(auth);
   };
 
+  // recuperar senha
+  const recoverPassword = async (email) => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {})
+      .catch(() => {
+        setError("Algo deu errado, tente novamente mais tarde.");
+      });
+  };
+
   useEffect(() => {
     return () => setCancelled(true);
   }, []);
@@ -84,6 +93,7 @@ export const useAuthentication = () => {
   return {
     auth,
     createUser,
+    recoverPassword,
     login,
     logout,
     error,

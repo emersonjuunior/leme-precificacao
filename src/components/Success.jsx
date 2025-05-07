@@ -1,6 +1,6 @@
 const Success = ({ closeNotification, msg }) => {
   return (
-    <div className="fixed bottom-10 left-16 w-[300px] md:w-[350px] h-[65px] flex justify-around items-center bg-[#edfbd8] border border-[#84d65a] rounded px-0 py-1 font-light shadow-[4px_4px_10px_-10px_rgba(0,0,0,1)] transform animate-notification animate-delay-[3s]">
+    <div className="fixed bottom-10 left-4 md:left-16 w-[300px] md:w-[350px] h-[70px] flex justify-around items-center bg-[#edfbd8] border border-[#84d65a] rounded px-0 py-1 font-light shadow-[4px_4px_10px_-10px_rgba(0,0,0,1)] transform animate-notification animate-delay-[3s]">
       <div className="flex items-center justify-center mx-3 rounded-full p-1 bg-[#2b641e]">
       <i className="fa-solid fa-check text-white"></i>
       </div>
