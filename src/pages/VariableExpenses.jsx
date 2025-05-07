@@ -56,7 +56,7 @@ const VariableExpenses = () => {
 
   return (
     <main className="md:px-4 mb-10">
-      <div className="relative w-full max-w-[1400px] bg-gray-200 mx-auto text-zinc-700 md:min-h-[700px] min-h-[400px] rounded-lg shadow-lg">
+      <section className="relative w-full max-w-[1400px] bg-gray-200 mx-auto text-zinc-700 md:min-h-[700px] min-h-[400px] rounded-lg shadow-lg">
         <div className="px-6 md:px-14 pt-6 bg-gray-300 flex flex-col justify-center rounded-t-lg">
           <h1 className="text-5xl mb-5 font-medium">Despesas Variáveis</h1>
           <div className="flex flex-wrap gap-5 md:gap-8 items-center mb-8">
@@ -93,9 +93,13 @@ const VariableExpenses = () => {
               >
                 <div className="h-8/10 min-w-1 ml-4 rounded-md bg-linear-180 from-sky-400 to-indigo-800"></div>
                 <div className="flex flex-col gap-4">
-                  <h4 className="text-3xl md:text-4xl font-medium lg:w-[350px] w-[250px] truncate">{expense.name}</h4>
+                  <h4 className="text-3xl md:text-4xl font-medium lg:w-[350px] w-[250px] truncate">
+                    {expense.name}
+                  </h4>
                   <div className="flex items-end lg:w-[330px] w-[230px] truncate">
-                    <p className="text-3xl md:text-4xl font-medium mr-1">{expense.value}%</p>
+                    <p className="text-3xl md:text-4xl font-medium mr-1">
+                      {expense.value}%
+                    </p>
                     <span className="text-lg">/mês</span>
                   </div>
                   <div className="flex w-full items-center gap-4">
@@ -125,7 +129,7 @@ const VariableExpenses = () => {
             ))}
           </div>
         )}
-      </div>
+      </section>
       {commonExpensesModal && (
         <CommonExpenses
           typeOfExpense={"variableExpenses"}
@@ -154,7 +158,7 @@ const VariableExpenses = () => {
       )}
       {updateModal && (
         <UpdateModal
-        typeOfExpense={"variableExpenses"}
+          typeOfExpense={"variableExpenses"}
           toggleUpdateModal={toggleUpdateModal}
           expenseId={expenseId}
           currentExpense={currentExpense}
